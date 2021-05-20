@@ -1,4 +1,13 @@
 # This file is the list of classes and methods used to run the app
+require "tty-prompt"
+require "tod"
+require "io/console"
+require "date"
+require "time"
+require "colorize"
+require_relative ("reminder.rb")
+require_relative ("db.rb")
+require_relative ("text.rb")
 class App
   attr_accessor :reminders
 
