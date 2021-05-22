@@ -21,6 +21,34 @@ class ReminderWeekly < Reminder
         @days_taken = days_taken
         @times_taken = times_taken
     end
+
+    def display_reminder
+        puts "Reminder name:".colorize(:cyan)
+        puts "#{@name}".colorize(:light_cyan)
+        puts "Owner: ".colorize(:light_magenta)
+        puts "#{@owner}"
+        puts "Days taken: ".colorize(:light_magenta)
+        @days_taken.each do |day|
+          puts day
+        end
+        puts "Times taken: ".colorize(:light_magenta)
+        @times_taken.each do |time|
+          puts "#{time[:hour]}:#{time[:minute]}"
+        end
+      end
+    
+      def display_reminder_short
+        puts "\nReminder name: ".colorize(:cyan)
+        puts "#{@name}".colorize(:light_cyan)
+        puts "Owner: ".colorize(:light_magenta)
+        puts "#{@owner}"
+        puts "Times taken: ".colorize(:light_magenta)
+        @times_taken.each do |time|
+          puts "#{time[:hour]}:#{time[:minute]}\n"
+        end
+        puts "\n"
+      end
+      
 end
 
 end
