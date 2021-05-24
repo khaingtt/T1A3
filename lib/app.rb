@@ -148,4 +148,52 @@ class App
     end
   end
 
+  def reminders_menu(argv = false)
+    loop do
+      clear
+      titlebar
+      puts "View, edit or delete existing reminders\n".colorize(:light_cyan)
+      choices = [
+        { name: "View all reminder entries", value: -> {
+          display_all_reminders
+          continue
+        } },
+        { name: "Edit a reminder entry", value: -> {
+          edit_reminder
+          Db.write_to_file(reminders)
+          } },
+        { name: "Delete a reminder entry", value: -> {
+          delete_reminder
+          Db.write_to_file(reminders)
+          } },
+        { name: "Back", value: -> {
+          if argv
+            exit
+          else
+            clear
+            main_menu
+          end
+        } },
+      ]
+      choice = @prompt.select("Please select from the following options:\n", choices, help: "(Choose using ↑/↓ arrow keys, press Enter to select)", show_help: :always)
+    end
+  end
+
+  def time_input
+    times = []
+    time_taken = ""
+
+    loop do
+      input = @prompt.ask("What time of day do you want to set this reminder?", required: :true)
+      if Tod::TimeOfDay.parsable?(input)
+        time_taken = Tod::TimeOfDay.parse(input)
+        break
+      else
+        puts "Invalid input. Please enter a time (e.g. 1600, 4pm, 4:00)\n".colorize(:red)
+      end
+    end
+    times.push({ hour: time_taken.hour.to_s.rjust(2, "0"), minute: time_taken.minute.to_s.rjust(2, "0"), second_of_day: time_taken.second_of_day })
+    return times
+  end
+  
 end
