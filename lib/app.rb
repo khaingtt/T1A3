@@ -70,4 +70,82 @@ class App
     continue
   end
 
+  def edit_reminder_weekly(index)
+    clear
+    titlebar
+    puts "Edit reminder\n".colorize(:light_cyan)
+    puts "You are editing " + "#{reminders[index].name}".colorize(:magenta) + "\n\n"
+    @reminders[index] = ReminderWeekly.new(*reminder_weekly_input)
+    Db.write_to_file(reminders)
+    clear
+    titlebar
+    puts "Reminder updated!\n\n"
+    reminders[index].display_reminder
+    continue
+  end
+
+  def edit_reminder
+    display_all_reminders
+    puts "Which entry would you like to edit?\n".colorize(:light_cyan)
+    puts "Be careful, this is permanent!".colorize(:background => :red, :color => :white).blink
+    choice = @prompt.ask("\nEnter a number to edit or q to cancel.")
+
+    if choice.nil?
+      continue
+      reminders_menu
+    elsif choice.upcase == "Q"
+      puts "\n Edit cancelled.".colorize(:green)
+      continue
+      reminders_menu
+    elsif choice.is_integer?
+      if choice.to_i >= 0 && reminders[choice.to_i - 1].nil? == false
+          edit_reminder_weekly(choice.to_i - 1)
+      else
+        puts "\nSelected entry does not exist.".colorize(:red)
+        continue
+        reminders_menu
+      end
+    else
+      puts "\nInvalid input, edit cancelled.".colorize(:red)
+      continue
+      reminders_menu
+    end
+  end
+
+  def delete_reminder
+    display_all_reminders
+    puts "Which entry would you like to delete?\n".colorize(:light_cyan)
+    puts "Be careful, this is permanent!".colorize(:background => :red, :color => :white).blink
+    choice = @prompt.ask("\nEnter a number to delete or q to cancel.")
+    if choice.is_integer?
+      if choice.to_i >= 0 && reminders[choice.to_i - 1].nil? == false
+        if @prompt.yes?("Are you sure?")
+          reminders.delete_at(choice.to_i - 1)
+          clear
+          titlebar
+          puts "\nReminder deleted!"
+          continue
+        else
+          puts "\n Delete cancelled.".colorize(:green)
+          continue
+          reminders_menu
+        end
+      else
+        puts "\nSelected entry does not exist.".colorize(:red)
+        continue
+        reminders_menu
+      end
+    else
+      if choice.upcase == "Q"
+        puts "\n Delete cancelled.".colorize(:green)
+        continue
+        reminders_menu
+      else
+        puts "\nInvalid input, delete cancelled.".colorize(:red)
+        continue
+        reminders_menu
+      end
+    end
+  end
+
 end
