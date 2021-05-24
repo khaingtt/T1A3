@@ -251,4 +251,40 @@ class App
     main_menu
   end
 
+  def display_all_reminders
+    if reminders.length > 0
+      puts "Current reminders:\n\n".colorize(:light_cyan)
+      i = 1
+      reminders.each do |reminder|
+        puts "--------- #{i} ---------\n"
+        reminder.display_reminder
+        puts "---------------------\n\n"
+        i += 1
+      end
+    else
+      puts "\nThere are no reminders yet...\n\n"
+      goto_wizard = @prompt.yes?("Would you like to add your first one now?")
+      if goto_wizard == true
+        add_reminder_weekly
+      else
+        clear
+        main_menu
+      end
+    end
+  end
+
+  def clear
+    system("clear") || system("cls")
+  end
+
+  def continue
+    print "\n\nPress any key to continue..."
+    STDIN.getch
+  end
+end
+
+class String # To provide a way to check if user input is an integer-like string
+    def is_integer?
+      self.to_i.to_s == self
+    end
 end
