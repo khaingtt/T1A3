@@ -195,5 +195,60 @@ class App
     times.push({ hour: time_taken.hour.to_s.rjust(2, "0"), minute: time_taken.minute.to_s.rjust(2, "0"), second_of_day: time_taken.second_of_day })
     return times
   end
-  
+
+  def reminder_week(argv = false)
+    clear
+    titlebar
+    puts "---------- 1 Week Schedule ----------\n".colorize(:light_cyan)
+    reminders_day = {
+      "Sunday" => [],
+      "Monday" => [],
+      "Tuesday" => [],
+      "Wednesday" => [],
+      "Thursday" => [],
+      "Friday" => [],
+      "Saturday" => [],
+    }
+    today = Date.today
+    reminders.each do |remind|
+        remind.days_taken.each do |day|
+          reminders_day[day] << remind
+        end
+    end
+    schedule_1week = reminders_day.to_a.rotate(Date.today.wday)
+    schedule_1week.each do |day|
+      header = "\n----- #{day.first} -----"
+      puts header.colorize(:yellow)
+      if day.last == []
+        puts "\nNo reminders\n"
+      else
+        day.last.each(&:display_reminder_short)
+      end
+      header.length.times do
+        print "-".colorize(:yellow)
+      end
+      puts "\n\n"
+    end
+    continue
+    if argv
+      exit
+    else
+      clear
+      main_menu
+    end
+  end
+
+  def reminder_day(argv = false)
+    clear
+    titlebar
+    puts "---------- Short Schedule ----------\n".colorize(:light_cyan)
+    reminders.each do |remind|
+      remind.next_hours(24)
+    end
+    continue
+    exit if argv
+    clear
+    main_menu
+  end
+
 end
