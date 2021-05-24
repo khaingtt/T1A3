@@ -56,5 +56,18 @@ class App
     reminder_times_taken = time_input
     return reminder_name, reminder_owner, reminder_days_taken, reminder_times_taken
   end
-  
+
+  def add_reminder_weekly(argv = false)
+    clear
+    titlebar
+    puts "Add reminder taken on weekly schedule\n\n".colorize(:light_cyan)
+    @reminders << ReminderWeekly.new(*reminder_weekly_input)
+    Db.write_to_file(reminders)
+    clear
+    titlebar
+    puts "Reminder added!\n\n"
+    reminders.last.display_reminder
+    continue
+  end
+
 end
