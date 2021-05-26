@@ -1,10 +1,16 @@
-# Personal reminder app for CLI
+# Personal reminder CLI app
+
+# Purpose and planning 
 
 The purpose of this terminal app is to assist to remind the regular schedules weekly plan they need to go appointment or activities to join. As a person with busy schedules this app is help to remind their appointments or add , edit and delete functions so it cannot be missed.
 
 The idea came up for myself as a mum of school age kid I need the weekly plan and reminder is for coming week activities and stuff need to prepare.
 
 This app is designed for people who are forgetful but would prefer to use simple command line interface utility to help.
+
+The future updates and extensions will be added during the code learning journey for better application.
+
+Project planning tools trello is very useful during prepartion of this project. By using it we can share the list of works to be done , the progress of the app , testing and error handling, back log problems to solve out.
 
 ## Functionality
 
@@ -29,7 +35,7 @@ gem "tod"
 gem "colorize", "~> 0.8.1"
 gem "rspec"
 
-### How to run app
+### How to run app and list of function used
 
 To use the app  the following dependencies, which can be installed by running the  ```install-dependencies.sh``` shell script, or from the ```/src``` directory using ```bundle install```:
 
