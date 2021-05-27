@@ -13,7 +13,7 @@ The future updates and extensions will be added during the code learning journey
 Project planning tools trello is very useful during prepartion of this project. By using it we can share the list of works to be done , the progress of the app , testing and error handling, back log problems to solve out.
 
 ![trello](./terminal-app-trello.png)
-![trello-link](https://trello.com/b/yEwz2P8M/ruby-terminal-app)
+[visit-my-trello](https://trello.com/b/yEwz2P8M/ruby-terminal-app)
 
 # Work flow and development diagram app
 
